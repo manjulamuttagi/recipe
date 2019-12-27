@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package guru.springframework.recipe.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

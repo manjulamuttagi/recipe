@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package guru.springframework.recipe.domain;
 
 import java.math.BigDecimal;
 
@@ -12,11 +12,11 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Ingredient {
-	private String description;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String description;
 	private BigDecimal amount;
 	
 	@OneToOne(fetch = FetchType.EAGER)
