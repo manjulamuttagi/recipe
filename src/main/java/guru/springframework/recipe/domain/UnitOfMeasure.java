@@ -2,9 +2,13 @@ package guru.springframework.recipe.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import lombok.Data;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+@Data
 @Entity
 public class UnitOfMeasure {
 	private String description;
@@ -12,21 +16,4 @@ public class UnitOfMeasure {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
-	
-
 }

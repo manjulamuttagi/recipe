@@ -1,5 +1,6 @@
 package guru.springframework.recipe.bootstrap;
 
+import org.hibernate.validator.internal.util.privilegedactions.GetInstancesFromServiceLoader;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -13,15 +14,19 @@ import guru.springframework.recipe.domain.UnitOfMeasure;
 import guru.springframework.recipe.repository.CategoryRepository;
 import guru.springframework.recipe.repository.RecipeRepository;
 import guru.springframework.recipe.repository.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by jt on 6/13/17.
  */
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -36,11 +41,13 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
     }
 
     private List<Recipe> getRecipes() {
+    	log.debug("inside getRecipes method");
 
         List<Recipe> recipes = new ArrayList<>(2);
 
@@ -207,6 +214,18 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.getCategories().add(mexicanCategory);
 
         recipes.add(tacosRecipe);
+        
+        Recipe sambarRecipe = new Recipe();
+        sambarRecipe.setCookTime(20);
+        sambarRecipe.setDescription("tomato sambar");
+        sambarRecipe.setDifficulty(Difficulty.EASY);
+        sambarRecipe.setDirections("Boil Tomato, smash tomato, do seasoning and add rasasm powder,salt and jaggery and boil for 3 mintutes.");
+        sambarRecipe.getIngredients().add(new Ingredient("tomato",new BigDecimal(2),eachUom,sambarRecipe));
+        Notes sambarRecipeNotes = new Notes();
+        sambarRecipeNotes.setRecipeNotes("Server with hot rice and ghee");
+        sambarRecipeNotes.setRecipe(sambarRecipe);
+        sambarRecipe.setNotes(sambarRecipeNotes);
+        recipes.add(sambarRecipe);
         return recipes;
     }
 }
