@@ -20,6 +20,10 @@ public class IndexController {
 	private CategoryRepository categoryRepository;
 	private UnitOfMeasureRepository unitOfMeasureRepository;
 	private RecipeService recipeService;
+	
+	public IndexController(RecipeService recipeService) {
+		this.recipeService = recipeService;
+	}
 
 	public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository,RecipeService recipeService) {
 		this.categoryRepository = categoryRepository;
@@ -37,6 +41,7 @@ public class IndexController {
 		
 		System.out.println("CatcategoryRepositoryegory Id" + cat.get().getId());
 		System.out.println("UnitofMeasureRepositoryegory Id" + uom.get().getId());
+		model.addAttribute("recipes", recipeService.getRecipes());
 		return "index";
 	}
 }

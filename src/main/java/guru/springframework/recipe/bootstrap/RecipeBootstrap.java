@@ -1,6 +1,5 @@
 package guru.springframework.recipe.bootstrap;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetInstancesFromServiceLoader;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -217,6 +216,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         
         Recipe sambarRecipe = new Recipe();
         sambarRecipe.setCookTime(20);
+        sambarRecipe.setPrepTime(2);
         sambarRecipe.setDescription("tomato sambar");
         sambarRecipe.setDifficulty(Difficulty.EASY);
         sambarRecipe.setDirections("Boil Tomato, smash tomato, do seasoning and add rasasm powder,salt and jaggery and boil for 3 mintutes.");
